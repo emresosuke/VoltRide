@@ -24,7 +24,7 @@ namespace VoltRide.Api.Services
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                    var bikes = await context.Bikes.ToListAsync(stoppingToken);
+                    var bikes = await context.Bikes.AsNoTracking().ToListAsync(stoppingToken);
 
                     foreach (var bike in bikes)
                     {
@@ -48,6 +48,12 @@ namespace VoltRide.Api.Services
 
                     if (bikes.Any())
                     {
+                        // Değişen bisiklet durumlarını EF Core'a "Güncellendi" olarak işaretle
+                        foreach (var bike in bikes)
+                        {
+                            context.Entry(bike).State = EntityState.Modified;
+                        }
+
                         await context.SaveChangesAsync(stoppingToken);
                         Console.WriteLine($"[IoT Simulator] {bikes.Count} adet bisiklet güncellendi ve canlı yayına gönderiliyor.");
 

@@ -1,87 +1,87 @@
-# 🚲 VoltRide - Gerçek Zamanlı Bisiklet Kiralama ve Takip Sistemi
+# 🚲 VoltRide - Real-Time Bike Rental & Tracking System
 
-VoltRide, elektrikli bisiklet kiralama süreçlerini ve filodaki bisikletlerin anlık konum/şarj durumlarını harita üzerinden gerçek zamanlı (real-time) izleyebileceğiniz modern bir web uygulamasıdır.
+VoltRide is a modern web application where you can track the rental processes of electric bikes and monitor the real-time location/battery status of the fleet on an interactive map.
 
-Bu proje, güçlü bir **.NET 8 Web API** arka ucu ve modern bir **React** ön yüzü ile geliştirilmiştir. Arka planda çalışan entegre **IoT Simülatörü**, bisikletlerin hareketini ve batarya tüketimini simüle ederek **SignalR** üzerinden anlık olarak haritaya yansıtır.
-
----
-
-## ✨ Özellikler
-
-- **Gerçek Zamanlı Harita İzleme:** Leaflet.js ve SignalR WebSocket entegrasyonu sayesinde sayfayı yenilemeden bisikletlerin hareketlerini izleyin.
-- **Canlı IoT Simülatörü:** Arka planda çalışan (.NET BackgroundService) simülatör, kiradaki bisikletlerin koordinatlarını değiştirir ve şarjlarını düşürür; boştaki bisikletleri ise yavaşça şarj eder.
-- **Bisiklet Kiralama & İade:** Kullanıcılar müsait bisikletleri kiralayabilir, kullanım süresi bittikten sonra iade edebilir ve ücret hesaplaması yapılabilir.
-- **Modern ve Şık Arayüz:** Glassmorphism tasarım dili, karanlık mod (Dark Mode) desteği ve pürüzsüz mikro-animasyonlarla zenginleştirilmiş React önyüzü.
-- **Entity Framework Core & SQLite:** Hızlı kurulum ve kolay test edilebilirlik için SQLite veritabanı kullanılmıştır.
+This project is built with a robust **.NET 8 Web API** backend and a premium **React** frontend. An integrated **IoT Simulator** running in the background simulates the movement and battery consumption of the bikes, broadcasting them instantly to the map via **SignalR**.
 
 ---
 
-## 🛠️ Kullanılan Teknolojiler
+## ✨ Features
 
-### Backend (Arka Yüz)
+- **Real-Time Map Tracking:** Watch bikes move on the map without refreshing the page, thanks to Leaflet.js and SignalR WebSocket integration.
+- **Live IoT Simulator:** A .NET BackgroundService simulates real-world conditions by moving rented bikes, draining their batteries, and slowly charging available bikes.
+- **Bike Rental & Return:** Users can rent available bikes, end their rides, and receive a calculated total fee.
+- **Modern & Sleek UI:** A rich React frontend enhanced with a Glassmorphism design language, Dark Mode support, and smooth micro-animations.
+- **Entity Framework Core & SQLite:** Uses a lightweight SQLite database for quick setup and easy local development.
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
 - **C# / .NET 8.0**
 - **ASP.NET Core Web API**
-- **SignalR** (Gerçek zamanlı WebSocket iletişimi)
+- **SignalR** (Real-time WebSocket communication)
 - **Entity Framework Core** (ORM)
-- **SQLite** (Veritabanı)
+- **SQLite** (Database)
 
-### Frontend (Ön Yüz)
-- **React.js** (Vite ile oluşturulmuş)
-- **React Leaflet** (İnteraktif harita renderlama)
-- **Lucide React** (Modern ikon kütüphanesi)
-- **Vanilla CSS3** (Özelleştirilmiş premium tasarım ve animasyonlar)
+### Frontend
+- **React.js** (Powered by Vite)
+- **React Leaflet** (Interactive map rendering)
+- **Lucide React** (Modern iconography)
+- **Vanilla CSS3** (Custom premium design and animations)
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma
+## 🚀 Getting Started
 
-Projeyi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin. (Bilgisayarınızda .NET 8 SDK ve Node.js kurulu olmalıdır).
+Follow these steps to run the project locally. (Requires .NET 8 SDK and Node.js).
 
-### 1. Backend (API) Kurulumu
+### 1. Backend (API) Setup
 
-Terminal veya komut satırını açın ve `VoltRide.Api` klasörüne gidin:
+Open a terminal and navigate to the `VoltRide.Api` folder:
 
 ```bash
 cd VoltRide.Api
 ```
 
-Gerekli paketleri indirmek ve projeyi başlatmak için şu komutu çalıştırın:
+Start the application (it will automatically restore NuGet packages):
 
 ```bash
 dotnet run
 ```
-*Not: Proje ilk kez çalıştığında veritabanını (`VoltRide.db`) ve başlangıç verilerini (Diyarbakır/Sur konumlu 3 örnek bisiklet) otomatik olarak oluşturacaktır. API, varsayılan olarak `http://localhost:5288` portunda çalışır.*
+*Note: On the first run, the project will automatically create the database (`VoltRide.db`) and seed it with 3 sample bikes. The API runs on `http://localhost:5288` by default.*
 
-### 2. Frontend (React) Kurulumu
+### 2. Frontend (React) Setup
 
-Farklı bir terminal sekmesi açın ve `VoltRide.Client` klasörüne gidin:
+Open a new terminal tab and navigate to the `VoltRide.Client` folder:
 
 ```bash
 cd VoltRide.Client
 ```
 
-Gerekli NPM paketlerini yükleyin:
+Install NPM dependencies:
 
 ```bash
 npm install
 ```
 
-Geliştirici sunucusunu başlatın:
+Start the development server:
 
 ```bash
 npm run dev
 ```
-*Not: React uygulaması varsayılan olarak `http://localhost:5173` portunda çalışacaktır. Tarayıcınızdan bu adrese giderek uygulamayı görüntüleyebilirsiniz.*
+*Note: The React application will run on `http://localhost:5173` by default. Open this address in your browser to view the app.*
 
 ---
 
-## 📂 Proje Mimarisi Hakkında Önemli Detaylar
+## 📂 Architecture & Important Details
 
-- **AsNoTracking ile Performanslı Simülasyon:** `BikeSimulatorService.cs` içerisinde EF Core'un Tracking mekanizması `AsNoTracking()` ile aşılarak, her 5 saniyede bir fiziksel veritabanından saf okuma yapılır. Değişen veriler `EntityState.Modified` ile bilinçli olarak güncellenip SignalR'a aktarılır.
-- **CORS ve WebSocket:** React'in (localhost:5173), API ile (localhost:5288) sorunsuz haberleşebilmesi için `Program.cs` içerisinde CORS politikaları ve SignalR Hub rotalamaları (`/bikehub`) yapılandırılmıştır.
+- **High-Performance Simulation with AsNoTracking:** The `BikeSimulatorService.cs` bypasses EF Core's default tracking mechanism using `AsNoTracking()` to read fresh physical data from the database every 5 seconds. Modified data is explicitly marked with `EntityState.Modified` to ensure updates are broadcasted accurately via SignalR.
+- **CORS & WebSocket Configuration:** To ensure smooth communication between React (`localhost:5173`) and the API (`localhost:5288`), CORS policies and SignalR Hub routing (`/bikehub`) are thoroughly configured in `Program.cs`.
 
 ---
 
-## 📄 Lisans
+## 📄 License
 
-Bu proje kişisel gelişim ve portfolyo amacıyla hazırlanmıştır. İstediğiniz gibi çatallayabilir (fork) ve geliştirebilirsiniz.
+This project was built for personal development and portfolio purposes. Feel free to fork and improve it.

@@ -8,7 +8,8 @@ namespace VoltRide.Api.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Bike> Bikes { get; set; }
-        public DbSet<RentalLog> RentalLogs { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<RideHistory> RideHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

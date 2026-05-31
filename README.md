@@ -39,38 +39,14 @@ Follow these steps to run the project locally. (Requires .NET 8 SDK and Node.js)
 
 ### 1. Backend (API) Setup
 
-Open a terminal and navigate to the `VoltRide.Api` folder:
+Open a terminal, navigate to the `VoltRide.Api` folder, and run `dotnet run` to start the application. It will automatically restore NuGet packages.
 
-```bash
-cd VoltRide.Api
-```
-
-Start the application (it will automatically restore NuGet packages):
-
-```bash
-dotnet run
-```
 *Note: On the first run, the project will automatically create the database (`VoltRide.db`) and seed it with 3 sample bikes. The API runs on `http://localhost:5288` by default.*
 
 ### 2. Frontend (React) Setup
 
-Open a new terminal tab and navigate to the `VoltRide.Client` folder:
+Open a new terminal tab, navigate to the `VoltRide.Client` folder, install NPM dependencies using `npm install`, and start the development server using `npm run dev`.
 
-```bash
-cd VoltRide.Client
-```
-
-Install NPM dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
 *Note: The React application will run on `http://localhost:5173` by default. Open this address in your browser to view the app.*
 
 ---
